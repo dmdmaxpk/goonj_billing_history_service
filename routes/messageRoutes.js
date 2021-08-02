@@ -2,11 +2,8 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/messageController');
 
-router.route('/sms')
-    .post(controller.postSMS)
-
-// Update on the basis of user msisdn
-router.route('/email')
-    .post(controller.postEmail)
+router.route('/send-to-queue').post(controller.sendToQueue)
+router.route('/send-directly').post(controller.sendDirectly)
+router.route('/email').post(controller.postEmail)
 
 module.exports = router;

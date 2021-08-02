@@ -2,10 +2,15 @@ const config = require('../config');
 const MessageService = require('../services/MessageService');
 const EmailService = require('../services/EmailService');
 
-// CREATE
-exports.postSMS = async (req, res) => {
+exports.sendToQueue = async (req, res) => {
 	let postData = req.body;
-	await MessageService.sendMessage(postData.message, postData.msisdn);
+	await MessageService.sendToQueue(postData.message, postData.msisdn);
+	res.send({code: config.codes.code_success, message: 'Message Sent To Queue'});
+}
+
+exports.sendDirectly = async (req, res) => {
+	let postData = req.body;
+	await MessageService.sendDirectly(postData.message, postData.msisdn);
 	res.send({code: config.codes.code_success, message: 'Message Sent'});
 }
 
