@@ -77,7 +77,6 @@ class RabbitMq {
 }  
 
 class Singleton {
-
     constructor() {
         if (!Singleton.instance) {
             Singleton.instance = new RabbitMq();
@@ -87,7 +86,6 @@ class Singleton {
     getInstance() {
         return Singleton.instance;
     }
-  
   }
 
 module.exports = Singleton;

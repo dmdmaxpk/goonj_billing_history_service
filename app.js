@@ -40,7 +40,7 @@ app.listen(port, () => {
             try{
                 rabbitMq.createQueue(config.queueNames.billingHistoryDispatcher);
                 rabbitMq.consumeQueue(config.queueNames.billingHistoryDispatcher, (message) => {
-                    historyRepo.save(JSON.parse(message.content))
+                    await historyRepo.save(JSON.parse(message.content))
                     rabbitMq.acknowledge(message);
                 });
             }catch(error){
