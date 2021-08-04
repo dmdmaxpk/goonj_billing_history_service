@@ -1,4 +1,4 @@
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'production';
 
 
 const codes = {
@@ -33,11 +33,10 @@ const queueNames = {
 
 let config = {
     development: {
-        port: '3000',
+        port: 3003,
         rabbitMq: 'amqp://127.0.0.1',
         queueNames: queueNames,
         codes: codes,
-        logger_url: "http://127.0.0.1:8000/",
         secret: "MVPUBRY2IV",
         emailhost:"mail.dmdmax.com.pk",
         emailUsername: "reports@goonj.pk",
@@ -46,13 +45,11 @@ let config = {
         emailSecure: true,
     },
     staging: {
-        telenor_subscriber_query_api_tps: telenor_subscriber_query_api_tps,
-        port: '5000',
+        port: 3003,
         mongoDB: 'mongodb://mongodb:27017/goonjpaywall',
         rabbitMq: 'amqp://rabbitmq',
         queueNames: queueNames,
         codes: codes,
-        logger_url: "http://127.0.0.1:8000/",
         secret: "MVPUBRY2IV",
         emailhost:"mail.dmdmax.com.pk",
         emailUsername: "reports@goonj.pk",
@@ -61,13 +58,11 @@ let config = {
         emailSecure: true,
     },
     production: {
-        telenor_subscriber_query_api_tps: telenor_subscriber_query_api_tps,
         port: process.env.PW_PORT,
         mongoDB: process.env.PW_MONGO_DB_URL,
         rabbitMq: process.env.PW_RABBIT_MQ,
         queueNames: queueNames,
         codes: codes,
-        logger_url: "http://127.0.0.1:8000/",
         secret: "MVPUBRY2IV",
         emailhost:"mail.dmdmax.com.pk",
         emailUsername: "reports@goonj.pk",
