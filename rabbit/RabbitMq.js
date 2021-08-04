@@ -7,8 +7,8 @@ class RabbitMq {
         this.channel = null;
     }
 
-    initServer(queue_name, callback) {
-        this.createConnection((err,connection) => {
+    initServer(callback) {
+        this.createConnection((err, connection) => {
             if (err) {
                 console.log('Error while connection to RabbitMq: ', err);
                 callback(err);
@@ -20,7 +20,6 @@ class RabbitMq {
                         callback(error);
                     } else {
                         this.channel = channel;
-                        this.createQueue(queue_name, true);
                         callback(null, 'connected');
                     }
                 });
@@ -55,8 +54,6 @@ class RabbitMq {
 
     consumeQueue(queue, callback){
         this.channel.consume(queue, async (msg) =>  {
-
-            //console.log('consumeQueue -> msg: ', msg);
             callback(msg);
           }, {
             //It's time to turn manual acnkowledgments on using the {noAck: false} option and send a 

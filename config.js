@@ -25,47 +25,33 @@ const codes = {
     code_otp_not_found: 17
 }
 const rabbitMqConnectionString = 'amqp://127.0.0.1';
+const db_name = 'goonjpaywall';
+
 const queueNames = {
-    messageDispatcher: 'messageDispatcher',
+    billingHistoryDispatcher: 'billingHistoryDispather',
 }
-
-const emailConfig = {
-    secret: "MVPUBRY2IV",
-    host:"mail.dmdmax.com.pk",
-    username: "reports@goonj.pk",
-    password: "YiVmeCPtzJn39Mu",
-    port: 465,
-    secure: true,
-    from: 'paywall@dmdmax.com.pk'
-}
-
-const tp_ep_core_service = 'http://10.0.1.21:3001/core/'
-
 
 let config = {
     development: {
-        port: '3003',
+        port: '3008',
         rabbitMqConnectionString: rabbitMqConnectionString,
         queueNames: queueNames,
         codes: codes,
-        tp_ep_core_service: tp_ep_core_service,
-        emailConfig: emailConfig
+        mongo_connection_url: `mongodb://localhost:27017/${db_name}`
     },
     staging: {
-        port: '3003',
+        port: '3008',
         rabbitMqConnectionString: rabbitMqConnectionString,
         queueNames: queueNames,
         codes: codes,
-        tp_ep_core_service: tp_ep_core_service,
-        emailConfig: emailConfig
+        mongo_connection_url: `mongodb://localhost:27017/${db_name}`
     },
     production: {
-        port: '3003',
+        port: '3008',
         rabbitMqConnectionString: rabbitMqConnectionString,
         queueNames: queueNames,
         codes: codes,
-        tp_ep_core_service: tp_ep_core_service,
-        emailConfig: emailConfig
+        mongo_connection_url: `mongodb://localhost:27017/${db_name}`
     }
 };
 

@@ -3,8 +3,16 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 
 const config = require('./config');
-
 const app = express();
+
+const mongoose = require('mongoose');
+
+// Import database models
+require('./models/BillingHistory');
+
+// Connection to Database
+mongoose.connect(config.mongo_connection_url, {useUnifiedTopology: true, useCreateIndex: true, useNewUrlParser: true});
+mongoose.connection.on('error', err => console.error(`Error: ${err.message}`));
 
 // Middlewares
 app.use(bodyParser.json({limit: '5120kb'}));  //5MB
@@ -17,15 +25,27 @@ const rabbitMq = new RabbitMq().getInstance();
 // Import routes
 app.use('/', require('./routes/index'));
 
+const BillingHistoryRepository = require('./repos/BillingHistoryRepository');
+const historyRepo = new BillingHistoryRepository();
+
 // Start Server
 let { port } = config;
 app.listen(port, () => {
-    console.log(`Goonj Message Service Running On Port ${port}`);
-    rabbitMq.initServer(config.queueNames.messageDispatcher, (error, response) => {
+    console.log(`Goonj Billing History Service Running On Port ${port}`);
+    rabbitMq.initServer((error, response) => {
         if(error){
             console.error(error)
         }else{
             console.log('RabbitMq status', response);
+            try{
+                rabbitMq.createQueue(config.queueNames.billingHistoryDispatcher);
+                rabbitMq.consumeQueue(config.queueNames.billingHistoryDispatcher, (message) => {
+                    historyRepo.save(JSON.parse(message.content))
+                    rabbitMq.acknowledge(message);
+                });
+            }catch(error){
+                console.error(error.message);
+            }
         }
     });
 });
