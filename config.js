@@ -1,4 +1,4 @@
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'production';
 
 
 const codes = {
@@ -24,56 +24,48 @@ const codes = {
     code_already_in_queue: 16,
     code_otp_not_found: 17
 }
-
+const rabbitMqConnectionString = 'amqp://127.0.0.1';
 const queueNames = {
-    // producers
     messageDispatcher: 'messageDispatcher',
 }
+
+const emailConfig = {
+    secret: "MVPUBRY2IV",
+    host:"mail.dmdmax.com.pk",
+    username: "reports@goonj.pk",
+    password: "YiVmeCPtzJn39Mu",
+    port: 465,
+    secure: true,
+    from: 'paywall@dmdmax.com.pk'
+}
+
+const tp_ep_core_service = 'http://10.0.1.21:3001/core/'
 
 
 let config = {
     development: {
-        port: '3000',
-        rabbitMq: 'amqp://127.0.0.1',
+        port: '3003',
+        rabbitMqConnectionString: rabbitMqConnectionString,
         queueNames: queueNames,
         codes: codes,
-        logger_url: "http://127.0.0.1:8000/",
-        secret: "MVPUBRY2IV",
-        emailhost:"mail.dmdmax.com.pk",
-        emailUsername: "reports@goonj.pk",
-        emailPassword: "YiVmeCPtzJn39Mu",
-        emailPort: 465,
-        emailSecure: true,
+        tp_ep_core_service: tp_ep_core_service,
+        emailConfig: emailConfig
     },
     staging: {
-        telenor_subscriber_query_api_tps: telenor_subscriber_query_api_tps,
-        port: '5000',
-        mongoDB: 'mongodb://mongodb:27017/goonjpaywall',
-        rabbitMq: 'amqp://rabbitmq',
+        port: '3003',
+        rabbitMqConnectionString: rabbitMqConnectionString,
         queueNames: queueNames,
         codes: codes,
-        logger_url: "http://127.0.0.1:8000/",
-        secret: "MVPUBRY2IV",
-        emailhost:"mail.dmdmax.com.pk",
-        emailUsername: "reports@goonj.pk",
-        emailPassword: "YiVmeCPtzJn39Mu",
-        emailPort: 465,
-        emailSecure: true,
+        tp_ep_core_service: tp_ep_core_service,
+        emailConfig: emailConfig
     },
     production: {
-        telenor_subscriber_query_api_tps: telenor_subscriber_query_api_tps,
-        port: process.env.PW_PORT,
-        mongoDB: process.env.PW_MONGO_DB_URL,
-        rabbitMq: process.env.PW_RABBIT_MQ,
+        port: '3003',
+        rabbitMqConnectionString: rabbitMqConnectionString,
         queueNames: queueNames,
         codes: codes,
-        logger_url: "http://127.0.0.1:8000/",
-        secret: "MVPUBRY2IV",
-        emailhost:"mail.dmdmax.com.pk",
-        emailUsername: "reports@goonj.pk",
-        emailPassword: "YiVmeCPtzJn39Mu",
-        emailPort: 465,
-        emailSecure: true,
+        tp_ep_core_service: tp_ep_core_service,
+        emailConfig: emailConfig
     }
 };
 
