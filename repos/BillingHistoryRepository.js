@@ -14,6 +14,20 @@ class BillingHistoryRepository {
         return result;
     }
 
+    async getExpiryHistory(user_id) {
+        let result = await BillingHistory.aggregate([{             
+            $match:{ 
+                "user_id": user_id,
+                $or:[
+                    {"billing_status" : "expired"}, 
+                    {"billing_status" : "unsubscribe-request-recieved"}, 
+                    {"billing_status" : "unsubscribe-request-received-and-expired"}
+                ]
+            }      
+        }]);
+        return result;
+    }
+
     setDateWithTimezone(date){
         return new Date(date.toLocaleString("en-US", {timeZone: "Asia/Karachi"}));
     }
