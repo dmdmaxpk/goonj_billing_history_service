@@ -25,6 +25,7 @@ class BillingHistoryRepository {
                 ]
             }      
         }]);
+        console.log("expired history", result);
         return result;
     }
 
