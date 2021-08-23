@@ -5,6 +5,6 @@ const router = express.Router();
 router.get('/', (req, res) => res.send("Goonj Billing History Service"));
 
 router.use('/history',    require('./historyRoutes'));
-router.use('/reports',    require('./reportRoutes'));
+router.use('/report',    require('./reportRoutes'));
 
 module.exports = router;
