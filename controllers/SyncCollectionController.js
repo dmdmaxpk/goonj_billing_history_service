@@ -4,16 +4,17 @@ const syncRepo = new SyncCollectionRepository();
 
 exports.syncCollection = async(req, res) => {
     let {collection, method, data} = req.body;
-    
+    let result = undefined;
+
     console.log("warning", req.body);
     if(method == 'create'){
-        syncRepo.create(collection, data);
+        result = await syncRepo.create(collection, data);
     }
     else if(method == 'update'){
-        syncRepo.update(collection, data);
+        result = await syncRepo.update(collection, data);
     }
     else if(method == 'remove'){
-        syncRepo.remove(collection, data);
+        result = await syncRepo.remove(collection, data);
     }
 
     res.send(result);
