@@ -25,10 +25,10 @@ const codes = {
     code_otp_not_found: 17
 }
 const rabbitMqConnectionString = 'amqp://127.0.0.1';
-const db_name = 'goonjpaywall';
+const db_name = 'goonjpaywallhistory';
 
 const queueNames = {
-    billingHistoryDispatcher: 'billingHistoryDispather',
+    billingHistoryDispatcher: 'billingHistoryDispatcher',
 }
 
 let config = {

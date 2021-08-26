@@ -39,7 +39,7 @@ app.listen(port, () => {
             console.log('RabbitMq status', response);
             try{
                 rabbitMq.createQueue(config.queueNames.billingHistoryDispatcher);
-                rabbitMq.consumeQueue(config.queueNames.billingHistoryDispatcher, (message) => {
+                rabbitMq.consumeQueue(config.queueNames.billingHistoryDispatcher, async(message) => {
                     await historyRepo.save(JSON.parse(message.content))
                     rabbitMq.acknowledge(message);
                 });

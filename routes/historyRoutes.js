@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/messageController');
+const controller = require('../controllers/BillingHistoryController');
 
-router.route('/send-to-queue').post(controller.sendToQueue)
-router.route('/send-directly').post(controller.sendDirectly)
-router.route('/email').post(controller.postEmail)
+router.route('/get_expire_history').get(controller.getExpiryHistory)
 
 module.exports = router;
