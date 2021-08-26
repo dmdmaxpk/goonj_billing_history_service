@@ -9,6 +9,9 @@ const mongoose = require('mongoose');
 
 // Import database models
 require('./models/BillingHistory');
+require('./models/Subscription');
+require('./models/User');
+require('./models/ViewLog');
 
 // Connection to Database
 mongoose.connect(config.mongo_connection_url, {useUnifiedTopology: true, useCreateIndex: true, useNewUrlParser: true});
