@@ -17,5 +17,7 @@ exports.syncCollection = async(req, res) => {
         result = await syncRepo.remove(collection, data);
     }
 
+    console.log("warning", method, result);
+
     res.send(result);
 }
