@@ -9,6 +9,7 @@ class SyncCollectionConsumer{
 
         let dataObject = JSON.parse(message.content);
         let {collection, method, data} = dataObject;
+        let result = undefined;
 
         console.log("warning", "method", method, "collection", collection);
 
