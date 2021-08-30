@@ -40,6 +40,7 @@ exports.rev_report = async (req,res) =>  {
 
 
     let revenue = await historyRepo.getRevenueInDateRange(todayStart, todayEnd);
+    await console.log("today revenue", revenue)
     data.push({'Todays revenue till the time': revenue[0].total});
 
     revenue = await historyRepo.getRevenueInDateRange(yesterdayStart, yesterdayEnd);
