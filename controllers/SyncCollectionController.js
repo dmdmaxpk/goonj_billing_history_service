@@ -6,7 +6,6 @@ exports.syncCollection = async(req, res) => {
     let {collection, method, data} = req.body;
     let result = undefined;
 
-    console.log("warning", req.body);
     if(method == 'create'){
         result = await syncRepo.create(collection, data);
     }
