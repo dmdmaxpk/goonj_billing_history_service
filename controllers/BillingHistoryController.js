@@ -9,6 +9,7 @@ exports.getExpiryHistory = async(req, res) => {
 }
 
 exports.rev_report = async (req,res) =>  {
+    req.setTimeout(60 * 5000);
     let data = [];
     let serverDate = new Date();
     let localDate = helper.setDateWithTimezone(serverDate);
@@ -54,6 +55,7 @@ exports.rev_report = async (req,res) =>  {
 }
 
 exports.req_count = async (req,res) =>  {
+    req.setTimeout(60 * 5000);
     let data = [];
     let serverDate = new Date();
     let localDate = helper.setDateWithTimezone(serverDate);
@@ -97,6 +99,7 @@ exports.req_count = async (req,res) =>  {
 }
 
 exports.revenue_stats = async (req,res) =>  {
+    req.setTimeout(60 * 5000);
     let revenueStats = [];
     let serverDate = new Date();
     let localDate = helper.setDateWithTimezone(serverDate);
