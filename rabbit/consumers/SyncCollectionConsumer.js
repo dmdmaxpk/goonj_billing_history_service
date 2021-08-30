@@ -11,8 +11,6 @@ class SyncCollectionConsumer{
         let {collection, method, data} = dataObject;
         let result = undefined;
 
-        console.log("warning", "method", method, "collection", collection);
-
         if(method == 'create'){
             result = await syncRepo.create(collection, data);
         }
