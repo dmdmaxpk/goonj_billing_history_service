@@ -1,6 +1,7 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const config = require('./config');
 const app = express();
@@ -21,6 +22,7 @@ mongoose.connection.on('error', err => console.error(`Error: ${err.message}`));
 app.use(bodyParser.json({limit: '5120kb'}));  //5MB
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger('dev'));
+app.use(cors());
 
 const RabbitMq = require('./rabbit/RabbitMq');
 const rabbitMq = new RabbitMq().getInstance();
