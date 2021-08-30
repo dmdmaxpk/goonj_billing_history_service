@@ -24,11 +24,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger('dev'));
 app.use(cors());
 
+// Import routes
+app.use('/', require('./routes/index'));
+
 const RabbitMq = require('./rabbit/RabbitMq');
 const rabbitMq = new RabbitMq().getInstance();
 
-// Import routes
-app.use('/', require('./routes/index'));
 
 const BillingHistoryConsumer = require('./rabbit/consumers/BillingHistoryConsumer');
 const billingHistoryConsumer = new BillingHistoryConsumer();
@@ -52,10 +53,10 @@ app.listen(port, () => {
                     billingHistoryConsumer.consume(message)
                 });
 
-                // rabbitMq.consumeQueue(config.queueNames.syncCollectionDispatcher, (message) => {
-                //     syncCollectionConsumer.consume(message);
-                //     rabbitMq.acknowledge(message);
-                // });
+                rabbitMq.consumeQueue(config.queueNames.syncCollectionDispatcher, (message) => {
+                    syncCollectionConsumer.consume(message);
+                    rabbitMq.acknowledge(message);
+                });
 
             }catch(error){
                 console.error(error.message);
