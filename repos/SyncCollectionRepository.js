@@ -18,7 +18,7 @@ class SyncCollectionRepository {
         let saveData = new Collection(data);
         console.log("save", saveData)
         let result = await saveData.save();
-        console.log("result", result)
+        console.log("warning", 'collection', Collection, "result", result)
         return result;
     }
 
