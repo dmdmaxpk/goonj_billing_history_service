@@ -52,10 +52,10 @@ app.listen(port, () => {
                     billingHistoryConsumer.consume(message)
                 });
 
-                rabbitMq.consumeQueue(config.queueNames.syncCollectionDispatcher, (message) => {
-                    syncCollectionConsumer.consume(message);
-                    rabbitMq.acknowledge(message);
-                });
+                // rabbitMq.consumeQueue(config.queueNames.syncCollectionDispatcher, (message) => {
+                //     syncCollectionConsumer.consume(message);
+                //     rabbitMq.acknowledge(message);
+                // });
 
             }catch(error){
                 console.error(error.message);
