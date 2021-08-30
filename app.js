@@ -30,8 +30,8 @@ const rabbitMq = new RabbitMq().getInstance();
 // Import routes
 app.use('/', require('./routes/index'));
 
-const BillingHistoryRepository = require('./repos/BillingHistoryRepository');
-const historyRepo = new BillingHistoryRepository();
+const BillingHistoryConsumer = require('./rabbit/consumers/BillingHistoryConsumer');
+const billingHistoryConsumer = new BillingHistoryConsumer();
 
 // Start Server
 let { port } = config;
@@ -44,9 +44,8 @@ app.listen(port, () => {
             console.log('RabbitMq status', response);
             try{
                 rabbitMq.createQueue(config.queueNames.billingHistoryDispatcher);
-                rabbitMq.consumeQueue(config.queueNames.billingHistoryDispatcher, async(message) => {
-                    await historyRepo.save(JSON.parse(message.content))
-                    rabbitMq.acknowledge(message);
+                rabbitMq.consumeQueue(config.queueNames.billingHistoryDispatcher, (message) => {
+                    billingHistoryConsumer.consume(message)
                 });
             }catch(error){
                 console.error(error.message);
