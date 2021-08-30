@@ -16,7 +16,6 @@ class SyncCollectionRepository {
             Collection = Viewlog;
         }
         let saveData = new Collection(data);
-        console.log("save", saveData)
         let result = await saveData.save();
         console.log("warning", 'collection', Collection, "result", result)
         return result;
@@ -36,7 +35,7 @@ class SyncCollectionRepository {
         }
 
         const result = await Collection.updateOne(query, data);
-        console.log("result", result)
+        console.log("warning", 'collection', Collection, "result", result)
         if (result.nModified === 0) {
             return undefined;
         }else{
