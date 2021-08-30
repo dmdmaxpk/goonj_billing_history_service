@@ -29,6 +29,7 @@ const db_name = 'goonjpaywall';
 
 const queueNames = {
     billingHistoryDispatcher: 'billingHistoryDispatcher',
+    syncCollectionDispatcher: 'syncCollectionDispatcher'
 }
 
 let config = {
