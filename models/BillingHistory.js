@@ -5,7 +5,6 @@ const ShortId = require('mongoose-shortid-nodeps');
 const billingHistorySchema = new Schema({
     msisdn: { type: String, index: true },
     user_id: { type:ShortId, required: true, index: true },
-    msisdn: { type:String, index: true },
     subscription_id: { type:ShortId,  index: true },
     paywall_id: { type:ShortId, required: true, index: true },
     package_id: { type: String, index: true },
