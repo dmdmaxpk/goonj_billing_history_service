@@ -54,7 +54,9 @@ app.listen(port, () => {
 
                 rabbitMq.consumeQueue(config.queueNames.syncCollectionDispatcher, (message) => {
                     syncCollectionConsumer.consume(message);
+                    rabbitMq.acknowledge(message);
                 });
+
             }catch(error){
                 console.error(error.message);
             }

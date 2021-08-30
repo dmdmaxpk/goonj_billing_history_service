@@ -1,8 +1,8 @@
 const SyncCollectionRepository = require('../../repos/SyncCollectionRepository');
 const syncRepo = new SyncCollectionRepository();
 
-const RabbitMq = require('../RabbitMq');
-const rabbitMq = new RabbitMq().getInstance();
+// const RabbitMq = require('../RabbitMq');
+// const rabbitMq = new RabbitMq().getInstance();
 
 class SyncCollectionConsumer{
     async consume(message){
@@ -21,7 +21,6 @@ class SyncCollectionConsumer{
         else if(method == 'remove'){
             result = await syncRepo.remove(collection, data);
         }
-        rabbitMq.acknowledge(message);
     }
 }
 
