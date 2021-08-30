@@ -33,6 +33,9 @@ app.use('/', require('./routes/index'));
 const BillingHistoryConsumer = require('./rabbit/consumers/BillingHistoryConsumer');
 const billingHistoryConsumer = new BillingHistoryConsumer();
 
+const SyncCollectionConsumer = require('./rabbit/consumers/SyncCollectionConsumer');
+const syncCollectionConsumer = new SyncCollectionConsumer();
+
 // Start Server
 let { port } = config;
 app.listen(port, () => {
@@ -49,9 +52,9 @@ app.listen(port, () => {
                     billingHistoryConsumer.consume(message)
                 });
 
-                // rabbitMq.consumeQueue(config.queueNames.syncCollectionDispatcher, (message) => {
-
-                // });
+                rabbitMq.consumeQueue(config.queueNames.syncCollectionDispatcher, (message) => {
+                    syncCollectionConsumer.consume(message);
+                });
             }catch(error){
                 console.error(error.message);
             }
