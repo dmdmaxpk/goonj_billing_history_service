@@ -44,7 +44,7 @@ class RabbitMq {
             if (error) {
               callback(error);
             }
-            channel.prefetch(120);
+            channel.prefetch(1000);
             callback(null, channel);
         });
     }
