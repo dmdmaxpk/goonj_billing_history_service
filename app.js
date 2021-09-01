@@ -48,15 +48,15 @@ app.listen(port, () => {
             console.log('RabbitMq status', response);
             try{
                 rabbitMq.createQueue(config.queueNames.billingHistoryDispatcher);
-                rabbitMq.createQueue(config.queueNames.syncCollectionDispatcher);
+                // rabbitMq.createQueue(config.queueNames.syncCollectionDispatcher);
                 rabbitMq.consumeQueue(config.queueNames.billingHistoryDispatcher, (message) => {
                     billingHistoryConsumer.consume(message)
                 });
 
-                rabbitMq.consumeQueue(config.queueNames.syncCollectionDispatcher, (message) => {
-                    //syncCollectionConsumer.consume(message);
-                    //rabbitMq.acknowledge(message);
-                });
+                // rabbitMq.consumeQueue(config.queueNames.syncCollectionDispatcher, (message) => {
+                //     //syncCollectionConsumer.consume(message);
+                //     //rabbitMq.acknowledge(message);
+                // });
 
             }catch(error){
                 console.error(error.message);
