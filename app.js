@@ -10,9 +10,6 @@ const mongoose = require('mongoose');
 
 // Import database models
 require('./models/BillingHistory');
-require('./models/Subscription');
-require('./models/User');
-require('./models/ViewLog');
 
 // Connection to Database
 mongoose.connect(config.mongo_connection_url, {useUnifiedTopology: true, useCreateIndex: true, useNewUrlParser: true});
@@ -25,7 +22,7 @@ app.use(logger('dev'));
 app.use(cors());
 
 // Import routes
-app.use('/', require('./routes/index'));
+// app.use('/', require('./routes/index'));
 
 const RabbitMq = require('./rabbit/RabbitMq');
 const rabbitMq = new RabbitMq().getInstance();
@@ -34,8 +31,6 @@ const rabbitMq = new RabbitMq().getInstance();
 const BillingHistoryConsumer = require('./rabbit/consumers/BillingHistoryConsumer');
 const billingHistoryConsumer = new BillingHistoryConsumer();
 
-const SyncCollectionConsumer = require('./rabbit/consumers/SyncCollectionConsumer');
-const syncCollectionConsumer = new SyncCollectionConsumer();
 
 // Start Server
 let { port } = config;
@@ -48,15 +43,9 @@ app.listen(port, () => {
             console.log('RabbitMq status', response);
             try{
                 rabbitMq.createQueue(config.queueNames.billingHistoryDispatcher);
-                // rabbitMq.createQueue(config.queueNames.syncCollectionDispatcher);
                 rabbitMq.consumeQueue(config.queueNames.billingHistoryDispatcher, (message) => {
                     billingHistoryConsumer.consume(message)
                 });
-
-                // rabbitMq.consumeQueue(config.queueNames.syncCollectionDispatcher, (message) => {
-                //     //syncCollectionConsumer.consume(message);
-                //     //rabbitMq.acknowledge(message);
-                // });
 
             }catch(error){
                 console.error(error.message);
