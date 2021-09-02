@@ -6,7 +6,8 @@ const rabbitMq = new RabbitMq().getInstance();
 
 class BillingHistoryConsumer{
     async consume(message){
-        await historyRepo.save(JSON.parse(message.content));
+        let history = JSON.parse(message.content);
+        await historyRepo.save(history);
         rabbitMq.acknowledge(message);
     }
 }

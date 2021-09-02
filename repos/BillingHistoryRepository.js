@@ -5,14 +5,19 @@ const moment = require('moment');
 class BillingHistoryRepository {
 
     async save(postData)  {
-        let localDate = this.setDateWithTimezone(new Date());
+        try{
+            let localDate = this.setDateWithTimezone(new Date());
 
-        let billingHistory = new BillingHistory(postData);
-        billingHistory.billing_dtm = localDate;
+            let billingHistory = new BillingHistory(postData);
+            billingHistory.billing_dtm = localDate;
+    
+            let result = await billingHistory.save();
+            console.log('$$:',JSON.stringify(result),':$$');
 
-        let result = await billingHistory.save();
-        console.log('Record saved in db', result);
-        return result;
+            return result;
+        }catch(error){
+            console.log(error);
+        }
     }
 
     async getExpiryHistory(user_id) {
@@ -26,7 +31,6 @@ class BillingHistoryRepository {
                 ]
             }      
         }]);
-        console.log("expired history", result);
         return result;
     }
 
