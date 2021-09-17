@@ -45,6 +45,7 @@ app.listen(port, () => {
                 rabbitMq.createQueue(config.queueNames.billingHistoryDispatcher);
                 rabbitMq.consumeQueue(config.queueNames.billingHistoryDispatcher, (message) => {
                     billingHistoryConsumer.consume(message)
+                    rabbitMq.acknowledge(message);
                 });
 
             }catch(error){
