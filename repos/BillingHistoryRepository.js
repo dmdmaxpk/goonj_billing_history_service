@@ -7,7 +7,7 @@ class BillingHistoryRepository {
     async save(postData)  {
         try{
             let localDate = this.setDateWithTimezone(new Date());
-
+            
             let billingHistory = new BillingHistory(postData);
             billingHistory.billing_dtm = localDate;
     
@@ -17,6 +17,23 @@ class BillingHistoryRepository {
             return result;
         }catch(error){
             console.log(error);
+        }
+    }
+
+    async findHistory(history){
+        try{
+            let today = this.setDateWithTimezone(new Date());
+            today.setHours(0, 0, 0, 0);
+
+            let tomorrowDate = this.setDateWithTimezone(new Date());
+            tomorrowDate.setHours(0, 0, 0, 0);
+            tomorrowDate.setDate(tomorrowDate.getDate() + 1);
+
+            let result = await BillingHistory.findOne({user_id: history.user_id, subscription_id: history.subscription_id, billing_dtm: {$gte: today, $lt: tomorrowDate}, "operator_response.errorMessage": history.operator_response.errorMessage})
+            return result;
+        }
+        catch{
+            console.log(`error while fetching ${history.user_id} history.`);
         }
     }
 
