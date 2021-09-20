@@ -8,7 +8,7 @@ class BillingHistoryConsumer{
         if(history.operator_response && history.operator_response.errorMessage && history.operator_response.errorMessage === 'The account balance is insufficient.'){
             let result = await historyRepo.findHistory(history);
             if(result){
-                console.log(`Billing history for user: ${history.user_id} with status ${history.operator_response.errorMessage} already exists for this day.`)
+                console.log('##:',JSON.stringify(result),':##');
             }
             else{
                 await historyRepo.save(history);
