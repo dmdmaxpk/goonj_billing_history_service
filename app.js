@@ -39,7 +39,16 @@ const historyRepo = new BillingHistoryRepository();
 let { port } = config;
 app.listen(port, () => {
     console.log(`Goonj Billing History Service Running On Port ${port}`);
-    console.log("timestamp", historyRepo.setDateWithTimezone(new Date()))
+
+    let today = historyRepo.setDateWithTimezone(new Date());
+    today.setHours(0, 0, 0, 0);
+
+    let tomorrowDate = historyRepo.setDateWithTimezone(new Date());
+    tomorrowDate.setHours(0, 0, 0, 0);
+    tomorrowDate.setDate(tomorrowDate.getDate() + 1);
+
+    console.log('today', today, 'tomorrow', tomorrowDate, 'now', historyRepo.setDateWithTimezone(new Date()))
+
     rabbitMq.initServer((error, response) => {
         if(error){
             console.error(error)
