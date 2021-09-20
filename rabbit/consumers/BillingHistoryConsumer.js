@@ -9,7 +9,8 @@ class BillingHistoryConsumer{
         let history = JSON.parse(message.content);
 
         if(history.operator_response && history.operator_response.errorMessage && 
-            (history.operator_response.errorMessage === 'The account balance is insufficient.' || history.operator_response.errorMessage === 'Failed to verify the management state.' || history.operator_response.errorMessage === 'Failed to verify the life cycle state.')){
+        (history.operator_response.errorMessage === 'The account balance is insufficient.' || history.operator_response.errorMessage === 'Failed to verify the management state.' || history.operator_response.errorMessage === 'Failed to verify the life cycle state.'))
+        {
             let result = await historyRepo.findHistory(history);
             if(result){
                 console.log('##:',JSON.stringify(result),':##');
