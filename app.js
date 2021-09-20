@@ -31,11 +31,15 @@ const rabbitMq = new RabbitMq().getInstance();
 const BillingHistoryConsumer = require('./rabbit/consumers/BillingHistoryConsumer');
 const billingHistoryConsumer = new BillingHistoryConsumer();
 
+const BillingHistoryRepository = require('./repos/BillingHistoryRepository');
+const historyRepo = new BillingHistoryRepository();
+
 
 // Start Server
 let { port } = config;
 app.listen(port, () => {
     console.log(`Goonj Billing History Service Running On Port ${port}`);
+    console.log("timestamp", historyRepo.setDateWithTimezone(new Date()))
     rabbitMq.initServer((error, response) => {
         if(error){
             console.error(error)
