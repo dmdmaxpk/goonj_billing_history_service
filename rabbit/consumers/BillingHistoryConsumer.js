@@ -17,6 +17,7 @@ class BillingHistoryConsumer{
         else{
             await historyRepo.save(history);
         }
+        rabbitMq.acknowledge(message);
     }
 }
 
