@@ -1,6 +1,9 @@
 const BillingHistoryRepository = require('../../repos/BillingHistoryRepository');
 const historyRepo = new BillingHistoryRepository();
 
+const RabbitMq = require('../RabbitMq');
+const rabbitMq = new RabbitMq().getInstance();
+
 class BillingHistoryConsumer{
     async consume(message){
         let history = JSON.parse(message.content);
@@ -11,14 +14,13 @@ class BillingHistoryConsumer{
             let result = await historyRepo.findHistory(history);
             if(result){
                 // console.log('##:',JSON.stringify(result),':##');
-            }
-            else{
+            }else{
                 await historyRepo.save(history);
             }
-        }
-        else{
+        }else{
             await historyRepo.save(history);
         }
+        rabbitMq.acknowledge(message);
     }
 }
 
