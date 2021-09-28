@@ -22,10 +22,10 @@ class BillingHistoryRepository {
 
     async findHistory(history){
         try{
-            let today = this.setDateWithTimezone(new Date(history.billing_dtm));
+            let today = new Date(history.billing_dtm);
             today.setHours(0, 0, 0, 0);
 
-            let tomorrowDate = this.setDateWithTimezone(new Date(history.billing_dtm));
+            let tomorrowDate = new Date(history.billing_dtm);
             tomorrowDate.setHours(0, 0, 0, 0);
             tomorrowDate.setDate(tomorrowDate.getDate() + 1);
 
