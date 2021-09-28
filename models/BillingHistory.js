@@ -12,7 +12,7 @@ const billingHistorySchema = new Schema({
     transaction_id: {type: String, index: true},
     operator_response: { type: {} },
     billing_status: String,
-    count: {type: Number, default: 1},
+    count: {type: Number, default: 1, index: true},
 
     //source of the user(android/ios/web/other)
     source: String,
