@@ -9,7 +9,13 @@ class BillingHistoryRepository {
             let localDate = this.setDateWithTimezone(new Date());
             
             let billingHistory = new BillingHistory(postData);
-            billingHistory.billing_dtm = localDate;
+            if (postData.hasOwnProperty('billing_dtm')){
+                console.log("billing_dtm exit in form data - billing_dtm: ", postData.billing_dtm, ', local_billing_dtm: ', localDate);
+            }
+            else {
+                billingHistory.billing_dtm = localDate;
+                console.log("billing_dtm doesn't exit in form data - local_billing_dtm: ", localDate, ', billing_dtm', postData.billing_dtm);
+            }
     
             let result = await billingHistory.save();
             console.log('$$:',JSON.stringify(result),':$$');
