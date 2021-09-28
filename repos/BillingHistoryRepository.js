@@ -6,10 +6,11 @@ class BillingHistoryRepository {
 
     async save(postData)  {
         try{
-            let localDate = this.setDateWithTimezone(new Date());
-            
             let billingHistory = new BillingHistory(postData);
-            billingHistory.billing_dtm = localDate;
+            if(!postData.billing_dtm){
+                let localDate = this.setDateWithTimezone(new Date());
+                billingHistory.billing_dtm = localDate;
+            }
     
             let result = await billingHistory.save();
             console.log('$$:',JSON.stringify(result),':$$');
@@ -20,20 +21,29 @@ class BillingHistoryRepository {
         }
     }
 
-    async findHistory(history){
+    async findHistory(history) {
         try{
-            let today = this.setDateWithTimezone(new Date());
+            let today = new Date(history.billing_dtm);
             today.setHours(0, 0, 0, 0);
 
-            let tomorrowDate = this.setDateWithTimezone(new Date());
+            let tomorrowDate = new Date(history.billing_dtm);
             tomorrowDate.setHours(0, 0, 0, 0);
             tomorrowDate.setDate(tomorrowDate.getDate() + 1);
 
             let result = await BillingHistory.findOne({user_id: history.user_id, subscription_id: history.subscription_id, billing_dtm: {$gte: today, $lt: tomorrowDate}, "operator_response.errorMessage": history.operator_response.errorMessage})
             return result;
+        }catch{
+            console.log(`Error while fetching ${history.user_id} history.`);
         }
-        catch{
-            console.log(`error while fetching ${history.user_id} history.`);
+    }
+
+    async updateCount(id) {
+        try{
+            let result = await BillingHistory.findOneAndUpdate({_id: id}, {$inc: {count: 1} }, {new: true})
+            return result;
+        }
+        catch(err){
+            console.log(`Error updating count for history id ${id}.`)
         }
     }
 

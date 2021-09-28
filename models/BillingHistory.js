@@ -12,11 +12,13 @@ const billingHistorySchema = new Schema({
     transaction_id: {type: String, index: true},
     operator_response: { type: {} },
     billing_status: String,
+    count: {type: Number, default: 1},
 
     //source of the user(android/ios/web/other)
     source: String,
     micro_charge: { type: Boolean, default: false, index: true },
     operator: String,
+
 
     // response time taken by api - TP or EP
     response_time: {type: Number, default: 0},
