@@ -30,8 +30,6 @@ class BillingHistoryRepository {
             tomorrowDate.setHours(0, 0, 0, 0);
             tomorrowDate.setDate(tomorrowDate.getDate() + 1);
 
-            console.log('Greater than or equal', today, 'smaller than', tomorrowDate, 'now', history.billing_dtm)
-
             let result = await BillingHistory.findOne({user_id: history.user_id, subscription_id: history.subscription_id, billing_dtm: {$gte: today, $lt: tomorrowDate}, "operator_response.errorMessage": history.operator_response.errorMessage})
             return result;
         }catch{
@@ -42,7 +40,6 @@ class BillingHistoryRepository {
     async updateCount(id) {
         try{
             let result = await BillingHistory.findOneAndUpdate({_id: id}, {$inc: {count: 1} }, {new: true})
-            console.log("Updated count for history id ",id, 'are', result.count)
             return result;
         }
         catch(err){
