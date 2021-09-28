@@ -10,6 +10,7 @@ class BillingHistoryRepository {
             if(!postData.billing_dtm){
                 let localDate = this.setDateWithTimezone(new Date());
                 billingHistory.billing_dtm = localDate;
+                console.log("@@: Attached local time :@@");
             }
     
             let result = await billingHistory.save();
