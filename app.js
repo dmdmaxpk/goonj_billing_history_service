@@ -31,10 +31,6 @@ const rabbitMq = new RabbitMq().getInstance();
 const BillingHistoryConsumer = require('./rabbit/consumers/BillingHistoryConsumer');
 const billingHistoryConsumer = new BillingHistoryConsumer();
 
-const BillingHistoryRepository = require('./repos/BillingHistoryRepository');
-const historyRepo = new BillingHistoryRepository();
-
-
 // Start Server
 let { port } = config;
 app.listen(port, () => {
