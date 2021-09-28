@@ -13,7 +13,7 @@ class BillingHistoryConsumer{
         {
             let result = await historyRepo.findHistory(history);
             if(result){
-                // console.log('##:',JSON.stringify(result),':##');
+                await historyRepo.updateCount(result._id);
             }else{
                 await historyRepo.save(history);
             }
