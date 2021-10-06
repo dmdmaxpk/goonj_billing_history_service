@@ -22,7 +22,7 @@ app.use(logger('dev'));
 app.use(cors());
 
 // Import routes
-// app.use('/', require('./routes/index'));
+app.use('/', require('./routes/index'));
 
 const RabbitMq = require('./rabbit/RabbitMq');
 const rabbitMq = new RabbitMq().getInstance();

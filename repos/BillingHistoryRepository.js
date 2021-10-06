@@ -48,6 +48,11 @@ class BillingHistoryRepository {
         }
     }
 
+    async getHistoryCount(startDate, endDate){
+        let count = await BillingHistory.find({billing_dtm: { $gte: new Date(startDate), $lt: new Date(endDate)} }).countDocuments();
+        return count;
+    }
+
     async getExpiryHistory(user_id) {
         let result = await BillingHistory.aggregate([{             
             $match:{ 
