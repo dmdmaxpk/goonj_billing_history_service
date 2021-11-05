@@ -1,8 +1,8 @@
 {
-	"name": "goonj-paywall-message-service",
+	"name": "goonj-billing-history-service",
 	"version": "0.0.0",
 	"private": true,
-	"scripts": {
+"scripts": {
 		"start": "node app.js --max_old_space_size=4096"
 	},
 	"dependencies": {
