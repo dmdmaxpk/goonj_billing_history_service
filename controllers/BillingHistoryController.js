@@ -44,14 +44,14 @@ exports.rev_report = async (req,res) =>  {
 
 
     let revenue = await historyRepo.getRevenueInDateRange(todayStart, todayEnd);
-    await console.log("today revenue", revenue)
-    data.push({'Todays revenue till the time': revenue[0].total});
+    console.log("today revenue", revenue)
+    data.push({'Todays revenue till the time': revenue[0] ? revenue[0].total : 0});
 
     revenue = await historyRepo.getRevenueInDateRange(yesterdayStart, yesterdayEnd);
-    data.push({'Yesterdays revenue till the time': revenue[0].total});
+    data.push({'Yesterdays revenue till the time': revenue[0] ? revenue[0].total : 0});
 
     revenue = await historyRepo.getRevenueInDateRange(dayBeforeYesterdayStart, dayBeforeYesterdayEnd);
-    data.push({'Day before yesterday revenue till the time': revenue[0].total});
+    data.push({'Day before yesterday revenue till the time': revenue[0]? revenue[0].total : 0});
 
     console.log("=> ", revenue);
     res.send(data);
@@ -88,13 +88,13 @@ exports.req_count = async (req,res) =>  {
     dayBeforeYesterdayEnd.setDate(serverDate.getDate() - 2);
 
     let requests = await historyRepo.getRequests(todayStart, todayEnd);
-    data.push({'Todays requests till the time': requests[0].sum});
+    data.push({'Todays requests till the time': requests[0] ? requests[0].sum : 0});
 
     requests = await historyRepo.getRequests(yesterdayStart, yesterdayEnd);
-    data.push({'Yesterdays requests till the time': requests[0].sum});
+    data.push({'Yesterdays requests till the time': requests[0] ? requests[0].sum : 0});
 
     requests = await historyRepo.getRequests(dayBeforeYesterdayStart, dayBeforeYesterdayEnd);
-    data.push({'Day before yesterdays requests till the time': requests[0].sum});
+    data.push({'Day before yesterdays requests till the time': requests[0] ? requests[0].sum : 0});
 
     console.log("=> ", data);
     res.send(data);
