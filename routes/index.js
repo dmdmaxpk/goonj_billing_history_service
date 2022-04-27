@@ -6,6 +6,7 @@ const cors = require('cors');
 router.get('/', (req, res) => res.send("Goonj Billing History Microservice"));
 
 router.get('/history/count', controller.getHistoryCount);
+router.get('/history', controller.getHistory);
 
 router.route('/rev', cors())
     .get(controller.rev_report)

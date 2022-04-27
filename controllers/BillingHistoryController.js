@@ -12,6 +12,12 @@ exports.getHistoryCount = async (req,res) =>  {
     res.send({count})
 }
 
+exports.getHistory = async (req,res) =>  {
+    let msisdn = req.query.msisdn;
+    let result = await historyRepo.getHistory(msisdn);
+    res.send(result);
+}
+
 exports.rev_report = async (req,res) =>  {
     let data = [];
     let serverDate = new Date();

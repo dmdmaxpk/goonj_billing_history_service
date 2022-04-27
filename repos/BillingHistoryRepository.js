@@ -53,6 +53,10 @@ class BillingHistoryRepository {
         return count;
     }
 
+    async getHistory(msisdn){
+        return await BillingHistory.find({msisdn: msisdn}).sort({billing_dtm:-1}).limit(10);
+    }
+
     async getExpiryHistory(user_id) {
         let result = await BillingHistory.aggregate([{             
             $match:{ 
